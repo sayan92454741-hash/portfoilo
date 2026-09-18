@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সায়ন পানিগ্রাহি - প্রফেশনাল ওয়ার্ডপ্রেস ডেভেলপার</title>
+    
+    <!-- Google Font: Hind Siliguri -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3a86ff',
+                        darkBg: '#0b0f19',
+                        cardBg: 'rgba(255, 255, 255, 0.05)',
+                        glassBorder: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    fontFamily: {
+                        sans: ['Hind Siliguri', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(18, 24, 38, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .glass-card:hover {
+            border-color: rgba(58, 134, 255, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(58, 134, 255, 0.3);
+        }
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #3a86ff 0%, #8338ec 50%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Project Image Scroll Hover Effect */
+        .project-img-container {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 0.75rem 0.75rem 0 0;
+        }
+        .project-img-container img {
+            width: 100%;
+            transition: transform 6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .project-img-container:hover img {
+            transform: translateY(calc(-100% + 220px));
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a86ff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-100 selection:bg-primary selection:text-white">
+
+    <!-- Top Menu Bar (Icons on Left Side) -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass border-b border-white/5 py-4 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Left Side: Social & Brand Icons -->
+            <div class="flex items-center space-x-5" id="nav-social-icons">
+                <!-- Will be populated by JS -->
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="#hero" class="hover:text-primary transition-colors">হোম</a>
+                <a href="#about" class="hover:text-primary transition-colors">আমার সম্পর্কে</a>
+                <a href="#skills" class="hover:text-primary transition-colors">দক্ষতা</a>
+                <a href="#portfolio" class="hover:text-primary transition-colors">প্রজেক্টস</a>
+                <a href="#contact" class="hover:text-primary transition-colors">যোগাযোগ</a>
+            </nav>
+
+            <!-- CTA / Contact Button -->
+            <div class="hidden md:block">
+                <a href="#contact" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-purple-600 text-white font-medium text-sm shadow-lg shadow-primary/30 hover:scale-105 transition-all">হায়ার মি</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-2xl text-gray-300 focus:outline-none">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full glass border-b border-white/10 px-6 py-6 space-y-4 flex flex-col shadow-2xl">
+            <a href="#hero" class="mobile-link text-lg hover:text-primary">হোম</a>
+            <a href="#about" class="mobile-link text-lg hover:text-primary">আমার সম্পর্কে</a>
+            <a href="#skills" class="mobile-link text-lg hover:text-primary">দক্ষতা</a>
+            <a href="#portfolio" class="mobile-link text-lg hover:text-primary">প্রজেক্টস</a>
+            <a href="#contact" class="mobile-link text-lg hover:text-primary">যোগাযোগ</a>
+            <a href="#contact" class="block text-center py-3 rounded-xl bg-gradient-to-r from-primary to-purple-600 text-white font-medium">হায়ার মি</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 md:px-12 overflow-hidden">
+        <!-- Parallax Background Glows -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10 w-full">
+            <!-- Text Content -->
+            <div data-aos="fade-right" data-aos-duration="1000" class="space-y-6 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-primary text-sm font-medium">
+                    <i class="fa-solid fa-code animate-pulse"></i> প্রফেশনাল ওয়ার্ডপ্রেস ডেভেলপার
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
+                    হ্যালো, আমি <br><span class="gradient-text" id="hero-name">সায়ন পানিগ্রahi</span>
+                </h1>
+                <p class="text-lg text-gray-300 max-w-xl" id="hero-bio">
+                    আধুনিক, ফাস্ট এবং প্রি-মিয়াম মানের ওয়ার্ডপ্রেস ওয়েবসাইট তৈরি করে আপনার ব্যবসাকে দিচ্ছি ডিজিটাল রূপ।
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-4">
+                    <a href="#portfolio" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-primary to-purple-600 text-white font-semibold shadow-lg shadow-primary/30 hover:scale-105 transition-all flex items-center gap-2">
+                        <span>প্রজেক্ট দেখুন</span> <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-3.5 rounded-xl glass-card text-white font-semibold hover:border-primary transition-all">
+                        যোগাযোগ করুন
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Image (Floating Effect) -->
+            <div data-aos="fade-left" data-aos-duration="1000" class="flex justify-center">
+                <div class="relative w-72 h-72 md:w-96 md:h-96">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-purple-600 rounded-3xl rotate-6 blur-lg opacity-70 animate-pulse"></div>
+                    <div class="relative w-full h-full rounded-3xl overflow-hidden glass-card p-2 border-2 border-white/20">
+                        <img id="profile-img" src="" alt="Sayan Panigrahi" class="w-full h-full object-cover rounded-2xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">আমার <span class="gradient-text">সম্পর্কে</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-400">জেনে নিন আমার কাজের ব্যাকগ্রাউন্ড এবং প্রফেশনাল জার্নি সম্পর্কে।</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="glass-card p-8 rounded-3xl space-y-6" data-aos="fade-right">
+                    <h3 class="text-2xl font-semibold text-primary">অভিজ্ঞতা ও প্যাশন</h3>
+                    <p class="text-gray-300 leading-relaxed" id="about-details">
+                        আমি একজন অভিজ্ঞ ওয়েব ডেভেলপার, যিনি মূলত ওয়ার্ডপ্রেস কাস্টমাইজেশন, থিম ডেভেলপমেন্ট এবং ফুল স্ট্যাক সলিউশন নিয়ে কাজ করি। ক্লায়েন্টের রিকুইরমেন্ট বুঝে নিখুঁত ও আধুনিক ইউজার ইন্টারফেস তৈরি করাই আমার মূল লক্ষ্য।
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-4">
+                        <div class="p-4 rounded-xl glass border border-white/5 text-center">
+                            <h4 class="text-3xl font-bold text-primary mb-1">৩+</h4>
+                            <p class="text-sm text-gray-400">বছরের অভিজ্ঞতা</p>
+                        </div>
+                        <div class="p-4 rounded-xl glass border border-white/5 text-center">
+                            <h4 class="text-3xl font-bold text-purple-500 mb-1">৫০+</h4>
+                            <p class="text-sm text-gray-400">সফল প্রজেক্ট</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6" data-aos="fade-left" id="experience-container">
+                    <!-- Dynamic Experience List -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 md:px-12 relative bg-black/20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">আমার <span class="gradient-text">দক্ষতা</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-400">যেসব টেকনোলজি ও টুলস ব্যবহার করে আমি প্রজেক্ট ডেভেলপ করি।</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6" id="skills-grid" data-aos="fade-up">
+                <!-- Dynamically populated skills -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio / Projects Section -->
+    <section id="portfolio" class="py-24 px-6 md:px-12 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">আমার <span class="gradient-text">প্রজেক্টসমূহ</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-400">আমার সাম্প্রতিক কিছু প্রি-মিয়াম ওয়ার্ডপ্রেস এবং ইকমার্স প্রজেক্টের স্যাম্পল।</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                <!-- Dynamically Populated Projects -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 md:px-12 relative bg-black/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">আমার সাথে <span class="gradient-text">যোগাযোগ করুন</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-400">যেকোনো প্রজেক্ট বা কাজের আলোচনায় সরাসরি বার্তা পাঠান।</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Contact Info & Details -->
+                <div class="space-y-6" data-aos="fade-right">
+                    <div class="glass-card p-8 rounded-3xl space-y-6">
+                        <h3 class="text-2xl font-semibold text-white">যোগাযোগের তথ্য</h3>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400">লোকেশন</h4>
+                                <p class="text-base font-medium" id="contact-location">বেলঘরিয়া</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400">ফোন</h4>
+                                <p class="text-base font-medium" id="contact-phone">৯৩৩০৫১৯৭৮৬৪</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400">ইমেইল</h4>
+                                <p class="text-base font-medium" id="contact-email">sayanpanigrahi02@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="glass-card p-8 rounded-3xl" data-aos="fade-left">
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">আপনার নাম</label>
+                            <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none text-white transition-colors" placeholder="সম্পূর্ণ নাম লিখুন">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">ফোন নম্বর</label>
+                            <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none text-white transition-colors" placeholder="আপনার ফোন নম্বর">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">ইমেইল অ্যাড্রেস</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none text-white transition-colors" placeholder="example@gmail.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">মেসেজ</label>
+                            <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none text-white transition-colors" placeholder="আপনার প্রজেক্ট বা বার্তা এখানে লিখুন..."></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-primary to-purple-600 text-white font-semibold shadow-lg shadow-primary/30 hover:scale-[1.02] transition-all">
+                            মেসেজ পাঠান
+                        </button>
+                    </form>
+                    <div id="form-status" class="mt-4 text-center text-sm hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Map Section -->
+    <section class="py-12 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto rounded-3xl overflow-hidden glass-card p-2 border border-white/10" data-aos="fade-up">
+            <div class="w-full h-[400px] rounded-2xl overflow-hidden">
+                <iframe id="google-map" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t border-white/10 text-gray-500 text-sm">
+        <p>&copy; ২০২৬ <span id="footer-name">সায়ন পানিগ্রাহি</span>। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <!-- JS Scripts & Dynamic Configuration -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+
+        // ==========================================
+        // DYNAMIC CONFIGURATION (কোড পরিবর্তন না করে শুধু এখান থেকে ডেটা আপডেট করুন)
+        // ==========================================
+        const CONFIG = {
+            name: "সায়ন পানিগ্রাহি",
+            profileImg: "https://cdn.corenexis.com/f/vrjFoHwz66k.png",
+            bio: "আধুনিক, ফাস্ট এবং প্রি-মিয়াম মানের ওয়ার্ডপ্রেস ওয়েবসাইট তৈরি করে আপনার ব্যবসাকে দিচ্ছি ডিজিটাল রূপ।",
+            aboutDetails: "আমি একজন অভিজ্ঞ ওয়েব ডেভেলপার, যিনি মূলত ওয়ার্ডপ্রেস কাস্টমাইজেশন, থিম ডেভেলপমেন্ট এবং ফুল স্ট্যাক সলিউশন নিয়ে কাজ করি। ক্লায়েন্টের রিকুইরমেন্ট বুঝে নিখুঁত ও আধুনিক ইউজার ইন্টারফেস তৈরি করাই আমার মূল লক্ষ্য।",
+            location: "বেলঘরিয়া",
+            phone: "৯৩৩০৫৯৭৮৬৪",
+            email: "sayanpanigrahi02@gmail.com",
+            githubId: "https://github.com/sayan92454741-hash",
+            
+            socialLinks: [
+                { icon: "fa-brands fa-github", url: "https://github.com/sayan92454741-hash" },
+                { icon: "fa-brands fa-linkedin-in", url: "#" },
+                { icon: "fa-brands fa-facebook-f", url: "#" },
+                { icon: "fa-brands fa-whatsapp", url: "https://wa.me/919330597864" }
+            ],
+
+            experiences: [
+                { title: "সিনিয়র ওয়ার্ডপ্রেস ডেভেলপার", company: "ফ্রিল্যান্সার ও এজেন্সি", year: "২০২৩ - বর্তমান", desc: "কাস্টম ওয়ার্ডপ্রেস থিম এবং প্লাগইন ডেভেলপমেন্ট।" },
+                { title: "ফ্রন্টএন্ড ওয়েব ডেভেলপার", company: "ডিজিটাল টেক", year: "২০২১ - ২০২৩", desc: "Tailwind CSS এবং JavaScript ভিত্তিক প্রজেক্ট সম্পন্ন করা।" }
+            ],
+
+            skills: [
+                { name: "WordPress", icon: "fa-brands fa-wordpress", level: "95%" },
+                { name: "Elementor Pro", icon: "fa-solid fa-layer-group", level: "90%" },
+                { name: "HTML5 / CSS3", icon: "fa-brands fa-html5", level: "92%" },
+                { name: "JavaScript", icon: "fa-brands fa-js", level: "85%" },
+                { name: "Tailwind CSS", icon: "fa-solid fa-wind", level: "88%" },
+                { name: "PHP / MySQL", icon: "fa-brands fa-php", level: "80%" },
+                { name: "WooCommerce", icon: "fa-solid fa-cart-shopping", level: "90%" },
+                { name: "Git & GitHub", icon: "fa-brands fa-git-alt", level: "85%" }
+            ],
+
+            projects: [
+                {
+                    title: "প্রি-মিয়াম ই-কমার্স সলিউশন",
+                    category: "WordPress & WooCommerce",
+                    image: "https://images.unsplash.com/photo-1556742049-0a67d553c2a3?auto=format&fit=crop&w=800&q=80",
+                    liveUrl: "#",
+                    githubUrl: "https://github.com/sayan92454741-hash"
+                },
+                {
+                    title: "ਕਾਰপরোরেট বিজনেস ওয়েবসাইট",
+                    category: "Elementor Pro",
+                    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+                    liveUrl: "#",
+                    githubUrl: "https://github.com/sayan92454741-hash"
+                },
+                {
+                    title: "মডার্ন পোর্টফোলিও ল্যান্ডিং পেজ",
+                    category: "HTML / Tailwind CSS",
+                    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
+                    liveUrl: "#",
+                    githubUrl: "https://github.com/sayan92454741-hash"
+                }
+            ],
+
+            // Telegram & Google Sheet Integration API (Optional placeholders)
+            telegramBotToken: "YOUR_TELEGRAM_BOT_TOKEN",
+            telegramChatId: "YOUR_CHAT_ID",
+            googleScriptApi: "YOUR_GOOGLE_SCRIPT_WEB_APP_URL",
+            
+            // Google Map Embed Link
+            googleMapLink: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14723.365445214066!2d88.3756!3d22.6710!2m3!1f0!2f0!3f0!3m2!1f1024!2f768!4f13.1!3m3!1m2!1s0x39f89e52df5ef7f7%3A0x6b8bc7e8d75cf78e!2sBelghoria%2C%2sKolkata%2C%2sWest%20Bengal!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+        };
+
+        // ==========================================
+        // DYNAMIC DATA INJECTION SCRIPT
+        // ==========================================
+        document.getElementById('hero-name').innerText = CONFIG.name;
+        document.getElementById('hero-bio').innerText = CONFIG.bio;
+        document.getElementById('profile-img').src = CONFIG.profileImg;
+        document.getElementById('about-details').innerText = CONFIG.aboutDetails;
+        document.getElementById('contact-location').innerText = CONFIG.location;
+        document.getElementById('contact-phone').innerText = CONFIG.phone;
+        document.getElementById('contact-email').innerText = CONFIG.email;
+        document.getElementById('footer-name').innerText = CONFIG.name;
+        document.getElementById('google-map').src = CONFIG.googleMapLink;
+
+        // Render Top Menu Social Icons (Left Side)
+        const navSocialContainer = document.getElementById('nav-social-icons');
+        CONFIG.socialLinks.forEach(link => {
+            navSocialContainer.innerHTML += `<a href="${link.url}" target="_blank" class="text-gray-300 hover:text-primary transition-colors text-lg"><i class="${link.icon}"></i></a>`;
+        });
+
+        // Render Experiences
+        const expContainer = document.getElementById('experience-container');
+        CONFIG.experiences.forEach(exp => {
+            expContainer.innerHTML += `
+                <div class="glass-card p-6 rounded-2xl border border-white/5 space-y-2">
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/20 text-primary">${exp.year}</span>
+                    <h4 class="text-xl font-semibold text-white pt-2">${exp.title}</h4>
+                    <p class="text-primary text-sm">${exp.company}</p>
+                    <p class="text-gray-400 text-sm">${exp.desc}</p>
+                </div>
+            `;
+        });
+
+        // Render Skills
+        const skillsGrid = document.getElementById('skills-grid');
+        CONFIG.skills.forEach(skill => {
+            skillsGrid.innerHTML += `
+                <div class="glass-card p-5 rounded-2xl flex items-center space-x-4 border border-white/5 hover:border-primary/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary text-xl">
+                        <i class="${skill.icon}"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-white">${skill.name}</h4>
+                        <span class="text-xs text-primary font-semibold">${skill.level}</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Render Projects
+        const projectsGrid = document.getElementById('projects-grid');
+        CONFIG.projects.forEach(project => {
+            projectsGrid.innerHTML += `
+                <div class="glass-card rounded-2xl overflow-hidden border border-white/10 group" data-aos="fade-up">
+                    <div class="project-img-container">
+                        <img src="${project.image}" alt="${project.title}">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/20 text-primary">${project.category}</span>
+                        <h3 class="text-xl font-semibold text-white group-hover:text-primary transition-colors">${project.title}</h3>
+                        <div class="flex items-center justify-between pt-2">
+                            <a href="${project.liveUrl}" target="_blank" class="px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium flex items-center gap-1.5 hover:bg-primary/80 transition-all">
+                                <i class="fa-solid fa-eye"></i> Live Preview
+                            </a>
+                            <a href="${project.githubUrl}" target="_blank" class="px-4 py-2 rounded-xl glass-card text-white text-sm font-medium flex items-center gap-1.5 hover:border-primary transition-all">
+                                <i class="fa-brands fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Form Submission Logic (Telegram & Google Sheet / Local Simulation)
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "পাঠানো হচ্ছে...";
+
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                // Telegram Notification Trigger (যদি কনফিগার করা থাকে)
+                if(CONFIG.telegramBotToken !== "YOUR_TELEGRAM_BOT_TOKEN") {
+                    const text = `New Portfolio Contact:\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nMessage: ${formData.message}`;
+                    await fetch(`https://api.telegram.org/bot${CONFIG.telegramBotToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: CONFIG.telegramChatId, text: text })
+                    });
+                }
+
+                // Google Script API Trigger (যদি কনফিগার করা থাকে)
+                if(CONFIG.googleScriptApi !== "YOUR_GOOGLE_SCRIPT_WEB_APP_URL") {
+                    await fetch(CONFIG.googleScriptApi, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+                }
+
+                formStatus.classList.remove('hidden', 'text-red-500');
+                formStatus.classList.add('text-green-400');
+                formStatus.innerText = "ধন্যবাদ! আপনার বার্তা সফলভাবে পাঠানো হয়েছে।";
+                contactForm.reset();
+            } catch (error) {
+                formStatus.classList.remove('hidden', 'text-green-400');
+                formStatus.classList.add('text-red-500');
+                formStatus.innerText = "দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "মেসেজ পাঠান";
+            }
+        });
+    </script>
+</body>
+</html>
